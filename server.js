@@ -33,7 +33,6 @@ app.post('/api/users', async (req, res) => {
   }
 })
 
-
 app.get('/api/registros', async (req, res) => {
   try {
     await asegurarTabla()
@@ -46,5 +45,5 @@ app.get('/api/registros', async (req, res) => {
   }
 })
 
-
-app.listen(3000, () => console.log('Servidor en http://localhost:3000'))
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => console.log('Servidor en puerto ' + PORT))
