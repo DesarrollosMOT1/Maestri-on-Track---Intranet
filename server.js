@@ -1,10 +1,11 @@
 require('dotenv').config()
 const express = require('express')
+const path = require('path')
 const { createClient } = require('@libsql/client')
 
 const app = express()
 app.use(express.json())
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')))
 
 const db = createClient({
   url: process.env.TURSO_DATABASE_URL,
@@ -45,5 +46,9 @@ app.get('/api/registros', async (req, res) => {
   }
 })
 
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => console.log('Servidor en puerto ' + PORT))
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000
+  app.listen(PORT, () => console.log('Servidor en puerto ' + PORT))
+}
+
+module.exports = app
